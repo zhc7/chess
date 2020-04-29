@@ -52,8 +52,15 @@ def read_from_file(file):
             condition = transfer_to_old_form(state)
         else:
             policies[''.join(condition)] = transfer_to_old_form(state)
+            policies[''.join(mirror(condition))] = transfer_to_old_form(mirror(state))
     return policies
 
+def mirror(state):
+    mirrored = []
+    for line in state:
+        mirrored_line = line[::-1]
+        mirrored.append(mirrored_line)
+    return mirrored
 
 def transfer_to_new_form(old_form):
     new_form = []
