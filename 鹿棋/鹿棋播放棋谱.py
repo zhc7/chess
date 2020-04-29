@@ -6,8 +6,8 @@ import traceback
 
 API_GET = 'http://www.eanson.work/ai/status?code={code}'
 API_SET = 'http://www.eanson.work/cb/status?i={content}&code={code}'
-nAPI_GET = 'http://flamechess.cn/js/1/22/fcdbrw.php?id={code}'
-nAPI_SET = 'http://flamechess.cn/js/1/22/fcdbrw.php?i={content}&id={code}'
+nAPI_GET = 'http://flamechess.cn/js/1/31/fcdbrw.php?id={code}'
+nAPI_SET = 'http://flamechess.cn/js/1/31/fcdbrw.php?i={content}&id={code}'
 DELAY = 0.5
 
 
@@ -76,7 +76,7 @@ def get_the_board(code):
     board = Board.get()
     cut_board = []
     for i in range(5):
-        cut_board.append(board[0+14*i:5+14*i])
+        cut_board.append(board[0+5*i:5+5*i])
     return cut_board
 
 def set_new_board(code, board):
@@ -88,7 +88,7 @@ def set_new_board(code, board):
     Board = ChessBoard(code, *tpe(code))
     filled_board = ''
     for line in board:
-        filled_line = line + '0'*9
+        filled_line = line
         filled_board += filled_line
     return Board.set(filled_board)
 
