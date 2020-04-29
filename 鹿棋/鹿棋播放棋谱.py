@@ -52,7 +52,7 @@ def read_from_file(file):
             condition = transfer_to_old_form(state)
         else:
             policies[''.join(condition)] = transfer_to_old_form(state)
-            policies[''.join(mirror(condition))] = transfer_to_old_form(mirror(state))
+            policies[''.join(mirror(condition))] = mirror(transfer_to_old_form(state))
     return policies
 
 def mirror(state):
