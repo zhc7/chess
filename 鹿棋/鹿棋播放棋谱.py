@@ -55,6 +55,21 @@ def read_from_file(file):
             policies[''.join(mirror(condition))] = mirror(transfer_to_old_form(state))
     return policies
 
+def read_contiuously(file):
+    #用连续方式读取棋谱，即下一行的状态是上一行状态的策略
+    with open(file, 'r') as f:
+        content = f.readlines()
+    policies = {}
+    for state, index in zip(content, range(len(content))):
+        state = transfer_to_old_form(state.strip())
+        if index == 0:
+            condition == state
+            continue
+        policies[''.join(condition)] = state
+        policies[''.join(mirror(condition))] = mirror(state)
+        condition = state
+    return policies
+
 def mirror(state):
     mirrored = []
     for line in state:
