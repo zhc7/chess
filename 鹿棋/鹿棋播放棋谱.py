@@ -141,7 +141,7 @@ def main(code, policy_text):
 if __name__ == '__main__':
     code = input("code:")
     try:
-        main(code, '/Users/yinxi/Documents/高研实验室/鹿棋棋谱.txt')
+        main(code, '鹿棋棋谱.txt')
     except:
         logging.debug(traceback.format_exc())
         raise
