@@ -45,17 +45,20 @@ class ChessBoard:
 
 def read_from_file(config):
     '''读取现有棋谱，返回一个哈希表，每个键为上一局面，每个值为键的下一个局面'''
+    if config['read_continuosly'] == 'True':
+        return read_contiuously(config['policy_file'])
     with open(config['policy_file'], 'r') as f:
         content = f.readlines()
     policies = {}
     for state, index in zip(content, range(len(content))):
-        state = state.strip()
+        state = transfer_to_old_form(state.strip(), config)
         if index % 2 == 0:
-            condition = transfer_to_old_form(state,config)
+            condition = state
         else:
-            policies[''.join(transfer_to_board_size(condition,config))] = transfer_to_board_size(transfer_to_old_form(state,config),config)
-            for c,p in zip(transform(condition,config),transform(transfer_to_old_form(state,config),config)):
-                policies[''.join(transfer_to_board_size(c,config))]=transfer_to_board_size(p,config)
+            for c, p in zip(transform(condition,config), transform(state, config)):
+                c = ''.join(transfer_to_board_size(c, config))
+                p = transfer_to_board_size(p, config)
+                policies[c] = p
     return policies #type:dict key:str value:list example:{'00z000000000Z000ZZZ0Z0Z0Z':['00z00','00Z00','00000','0ZZZ0','Z0Z0Z']}
 
 def transfer_to_board_size(reading_size_board,config):
@@ -74,7 +77,7 @@ def transfer_to_board_size(reading_size_board,config):
     new_board=[filled_board[i:i+5] for i in range(len(filled_board)) if i%5==0]
     return new_board
 
-def read_contiuously(file):
+def read_continuously(file):
     '''用连续方式读取棋谱，即下一行的状态是上一行状态的策略'''
     with open(file, 'r') as f:
         content = f.readlines()
@@ -84,9 +87,10 @@ def read_contiuously(file):
         if index == 0:
             condition == state
             continue
-        policies[''.join(condition)] = state
-        policies[''.join(mirror(condition))] = mirror(state)
-        condition = state
+        for c, p in zip(transform(condition,config), transform(state, config)):
+            c = ''.join(transfer_to_board_size(c, config))
+            p = transfer_to_board_size(p, config)
+            policies[c] = p
     return policies
 
 def transform(state,config):
@@ -120,11 +124,12 @@ def transform(state,config):
             4|5|6  ->  6|5|4   ->  2|5|8  ->   8|5|2
             7|8|9 上下  3|2|1  90度 1|4|7 270度 9|6|3  '''
         return [r1,r2,r3]
-    if config['rotation']=='False':
-        return [mirror(state)]
-    else:
-        return [mirror(state),*rotate(state)]
-    return False
+    return_list = [state]
+    if config['mirror'] == 'True':
+        return_list.append(mirror(state))
+    if config['rotation'] == 'True':
+        return_list += [*rotate(state)]
+    return return_list
 
 
 def transfer_to_new_form(old_form):
