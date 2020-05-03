@@ -214,7 +214,7 @@ def main(code,chess_type):
     if chess_type=='鹿棋':
         cleared_board = transfer_to_old_form("','v',b,bbb,bbb",config)
     else:
-        cleared_board = transfer_to_old_form("bb''|'vvv",config)
+        cleared_board = transfer_to_old_form("bbb'|'vvv",config)
     cleared_board=transfer_to_board_size(cleared_board,config)
     set_new_board(code, cleared_board)
     last_board = get_the_board(code) #type:list
