@@ -45,8 +45,8 @@ class ChessBoard:
 
 def read_from_file(config):
     '''读取现有棋谱，返回一个哈希表，每个键为上一局面，每个值为键的下一个局面'''
-    if config['read_continuosly'] == 'True':
-        return read_contiuously(config['policy_file'])
+    if config['read_continuously'] == 'True':
+        return read_continuously(config['policy_file'],config)
     with open(config['policy_file'], 'r') as f:
         content = f.readlines()
     policies = {}
@@ -77,20 +77,21 @@ def transfer_to_board_size(reading_size_board,config):
     new_board=[filled_board[i:i+5] for i in range(len(filled_board)) if i%5==0]
     return new_board
 
-def read_continuously(file):
+def read_continuously(file,config):
     '''用连续方式读取棋谱，即下一行的状态是上一行状态的策略'''
     with open(file, 'r') as f:
         content = f.readlines()
     policies = {}
     for state, index in zip(content, range(len(content))):
-        state = transfer_to_old_form(state.strip())
+        state = transfer_to_old_form(state.strip(),config)
         if index == 0:
-            condition == state
+            condition = state
             continue
         for c, p in zip(transform(condition,config), transform(state, config)):
             c = ''.join(transfer_to_board_size(c, config))
             p = transfer_to_board_size(p, config)
             policies[c] = p
+        condition=state
     return policies
 
 def transform(state,config):
