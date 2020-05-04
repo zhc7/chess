@@ -129,7 +129,7 @@ def transform(state,config):
     if config['mirror'] == 'True':
         return_list.append(mirror(state))
     if config['rotation'] == 'True':
-        return_list += [*rotate(state)]
+        return_list += rotate(state)
     return return_list
 
 
