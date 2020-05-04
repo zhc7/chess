@@ -168,7 +168,7 @@ def set_new_board(code, board):
         else:
             return API_GET, API_SET
     Board = ChessBoard(code, *tpe(code))
-    str_board=''.join(board)
+    str_board = ''.join(board)
     return Board.set(str_board) #重设网上棋盘
 
 
@@ -181,7 +181,7 @@ def transfer_to_old_form(new_form, config):
     i = 0
     for line in new_form.split(','):
         line = line.replace("'", '0').replace('v', 'z').replace('b', 'Z')
-        if i == 4 and config['chess_type'] == '鹿棋':
+        if i == 4 and config['chess_type'] == 'luqi':
             old_line = '0'.join(list(line))
         else:
             miss = '0' * int((eval(config['reading_size'])[0]-len(line))/2) #补位
@@ -191,7 +191,7 @@ def transfer_to_old_form(new_form, config):
     return old_form #type:list example:['00000','0Zz00','00000','0ZZZ0','Z0Z0Z']
 
 
-def get_config(file,chess_type):
+def get_config(file, chess_type):
     '''输入棋盘种类，读取config.ini返回字典
        chess_type: 棋盘种类
        policy_file: 棋谱文件路径
@@ -199,19 +199,19 @@ def get_config(file,chess_type):
        reading_size: [x, y] 需要读取写入区域的大小,
        mirror: True or False,
        rotation: [90, 180, -90] 需要旋转的度数'''
-    config={}
+    config = {}
     conf = configparser.ConfigParser()
     conf.read(file, encoding="utf-8")
-    items=conf.items(chess_type)
+    items = conf.items(chess_type)
     for key,value in items:
-        config[key]=value
+        config[key] = value
     return config
 
 def main(code,chess_type):
     config = get_config('config.ini',chess_type)
     policies = read_from_file(config)
-    chess_type=config['chess_type']
-    if chess_type=='鹿棋':
+    chess_type = config['chess_type']
+    if chess_type == 'luqi':
         cleared_board = transfer_to_old_form("','v',b,bbb,bbb",config)
     else:
         cleared_board = transfer_to_old_form("bbb'|'vvv",config)
@@ -235,10 +235,10 @@ def main(code,chess_type):
 
 
 if __name__ == '__main__':
-    chess_type=input("请输入棋盘种类，若选择鹿棋请输入'luqi'，若选择捉鳖棋请输入'zhuobieqi'：")
+    chess_type=input("please input chess type, 'luqi' or 'zhuobie':")
     code = input("code:")
     try:
-        main(code,chess_type)
+        main(code, chess_type)
     except:
         logging.debug(traceback.format_exc())
         raise
