@@ -14,5 +14,7 @@ jobs:
         ref: "鹿棋棋谱播放"
     - name: Build the Docker image
       run: docker build -t docker.pkg.github.com/zhc7/chess/luqi:latest 鹿棋
+    - name: Login to GitHub Packages
+      run: echo '${{ secrets.GITHUB_TOKEN }}' | docker login docker.pkg.github.com -u JingBh --password-stdin
     - name: Push the Docker image
       run: docker push docker.pkg.github.com/zhc7/chess/luqi:latest
