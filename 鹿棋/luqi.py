@@ -47,20 +47,17 @@ class ChessBoard:
 
 def read_from_file(config):
     """读取现有棋谱，返回一个哈希表，每个键为上一局面，每个值为键的下一个局面"""
-    if config['read_continuously'] == 'True':
-        return read_continuously(config['policy_file'], config)
     with open(config['policy_file'], 'r') as f:
         content = f.readlines()
     policies = {}
     for index, state in enumerate(content):
-        state = transfer_to_old_form(state.strip(), config)
+        state=state.replace('\n','')
         if index % 2 == 0:
             condition = state
         else:
-            for c, p in zip(transform(condition, config), transform(state, config)):
-                c = ''.join(transfer_to_board_size(c, config))
-                p = transfer_to_board_size(p, config)
-                policies[c] = p
+            state=[state[i:i+eval(config['reading_size'])[0]] for i in range(len(state)) if i%eval(config['reading_size'])[0]==0]
+            condition=[condition[i:i+eval(config['reading_size'])[0]] for i in range(len(condition)) if i%eval(config['reading_size'])[0]==0]
+            policies[''.join(transfer_to_board_size(condition,config))]=transfer_to_board_size(state,config)
     return policies  # type:dict  # key:str value:list
     # example:{'00z000000000Z000ZZZ0Z0Z0Z':['00z00','00Z00','00000','0ZZZ0','Z0Z0Z']}
 
@@ -82,7 +79,7 @@ def transfer_to_board_size(reading_size_board, config):
     return new_board
 
 
-def read_continuously(file, config):
+def read_continuously(file, config): #由于棋谱更新，本函数已废弃
     """用连续方式读取棋谱，即下一行的状态是上一行状态的策略"""
     with open(file, 'r') as f:
         content = f.readlines()
