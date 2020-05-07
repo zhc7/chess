@@ -6,3 +6,9 @@
 
 # Log
 log.txt
+
+# Config
+token.txt
+
+# Python Cache
+__pycache__
