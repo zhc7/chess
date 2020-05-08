@@ -1,0 +1,11 @@
+README.md
+setup.py
+flamechess/__init__.py
+flamechess/jiuqi.py
+flamechess/luqi.py
+flamechess/play.py
+flamechess.egg-info/PKG-INFO
+flamechess.egg-info/SOURCES.txt
+flamechess.egg-info/dependency_links.txt
+flamechess.egg-info/requires.txt
+flamechess.egg-info/top_level.txt
