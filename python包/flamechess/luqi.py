@@ -10,6 +10,9 @@ nAPI_GET = 'http://flamechess.cn/js/1/31/fcdbrw.php?id={code}'
 nAPI_SET = 'http://flamechess.cn/js/1/31/fcdbrw.php?i={content}&id={code}'
 DELAY = 0.5
 
+logging.basicConfig(filename='log.txt', level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 class State:
     def __init__(self, state, reading_size=None, board_size=None):
