@@ -193,16 +193,16 @@ class Board(ChessBoard):
             time.sleep(DELAY)
 
 
-def main():
-    input_chess_type = input("please input chess type, 'luqi' or 'zhuobie':")
-    input_code = input("code:")
-    board = Board("config.ini", input_chess_type, input_code)
+def main(chess_type, code):
+    board = Board("config.ini", chess_type, code)
     board.main()
 
 
 if __name__ == '__main__':
     try:
-        main()
+        input_chess_type = input("please input chess type, 'luqi' or 'zhuobie':")
+        input_code = input("code:")
+        main(input_chess_type, input_code)
     except Exception:
         logging.debug(traceback.format_exc())
         raise
