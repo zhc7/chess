@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: flamechess
+Version: 0.1.2
+Summary: Flamechess Tools
+Home-page: https://github.com/zhc7/chess
+Author: ZHC 张瀚宸
+Author-email: bjhansen2012@outlook.com
+License: UNKNOWN
+Description: # Flamechess Tools
+        这个包包含鹿棋（捉鳖）棋谱播放器、棋谱记录器，以及后续大部分的flamechess中的python部分
+        ## 1 棋谱记录器
+        ### 1.1 使用方法
+        * 直接运行：按照指示输入`code1`和`code2`
+        * 作为引用或在命令行：调用main函数，参数为`code1`, `code2`
+        ## 1.2 程序结构
+        * `ChessBoard`类用于获取和设置棋盘
+        * `tpe`函数用于判断棋盘码类型并选择API
+        * `Recorder`类用于作为记录器，记录棋谱
+        * `main`函数作为入口函数调用Recorder类执行相关操作
+        ## 2 鹿棋（捉鳖）棋谱播放器
+        ## 2.1 使用方法
+        * 直接运行：按照指示输入棋的类型和棋盘码
+        * 作为引用或在命令行：调用main函数，参数为棋的类型（`chess_type`）和棋盘码（`code`）
+        ## 2.2 程序结构
+        * `State`类是棋盘状态的基类
+        * `Board`类负责执行主要操作  
+        *详情请见注释
+        ## 2.3 引用
+        * 引用了play.py中的`ChessBoard`和`tpe`，用于获取和设置棋盘
+        ## 3 久棋规则
+        * 未完成的部分
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.4.0
+Description-Content-Type: text/markdown

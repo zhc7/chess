@@ -10,4 +10,4 @@ class Game:
 
     def is_win(self):
         pass
-    
+
