@@ -1,0 +1,3 @@
+[submodule "python packages"]
+	path = "python pakcages"
+	url = https://github.com/zhc7/flamechess-package.git
