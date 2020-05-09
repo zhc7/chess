@@ -38,7 +38,6 @@ def transform(state):
 
     def rotate(state):
         """旋转"""
-        rotation = []
         # 1.上下倒转
         r1 = mirror(state)
         r1.reverse()
@@ -63,7 +62,6 @@ def transform(state):
         return [state, mirror(state)]
     else:
         return [state, mirror(state), *rotate(state)]
-    return False
 
 
 def get_policies(situations):
@@ -93,11 +91,11 @@ def get_policies(situations):
 
 def write_txt(situations):
     if len(situations[0]) == 5:
-        with open('luqi.txt', 'w') as f:
+        with open('../python包/flamechess/luqi.txt', 'w') as f:
             for s in situations:
                 f.write(''.join(s) + '\n')
     else:
-        with open('zhuobie.txt', 'w') as f:
+        with open('../python包/flamechess/zhuobie.txt', 'w') as f:
             for s in situations:
                 f.write(''.join(s) + '\n')
 
@@ -108,5 +106,5 @@ def main(file):
 
 
 if __name__ == '__main__':
-    main('luqi.txt')
-    main('zhuobie.txt')
+    main('../python包/flamechess/luqi.txt')
+    main('../python包/flamechess/zhuobie.txt')
